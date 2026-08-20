@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>牡牛の紐</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>牡牛の紐</h1>
+    <p class="subtitle">先手：同じ長さ5を2個 ／ 後手：同じ長さ3を4個</p>
+  </header>
+
+  <main>
+    <section class="panel settings">
+      <div class="setting">
+        <label for="mode">モード</label>
+        <select id="mode">
+          <option value="human">人間 vs AI</option>
+          <option value="watch">AI vs AI 観戦</option>
+        </select>
+      </div>
+
+      <div class="setting">
+        <label for="side">あなたの手番</label>
+        <select id="side">
+          <option value="first">先手</option>
+          <option value="second">後手</option>
+        </select>
+      </div>
+
+      <div class="setting">
+        <label for="difficulty">AIの強さ</label>
+        <select id="difficulty">
+          <option value="weak">弱</option>
+          <option value="medium" selected>中</option>
+          <option value="strong">強</option>
+        </select>
+      </div>
+
+      <div class="setting check">
+        <label><input type="checkbox" id="highlight5" checked> 長さ5を強調</label>
+        <label><input type="checkbox" id="highlight3" checked> 長さ3を強調</label>
+      </div>
+
+      <div class="setting check">
+        <label><input type="checkbox" id="showEval"> 有利度を表示</label>
+        <label><input type="checkbox" id="showThinking" checked> AIの思考情報を表示</label>
+      </div>
+
+      <button id="newGame" class="primary">新しいゲーム</button>
+    </section>
+
+    <section class="panel status-panel">
+      <div class="status-row">
+        <div id="turnText">ゲーム開始</div>
+        <div id="evalBox" class="eval hidden">
+          <div class="eval-label">あなたの有利度</div>
+          <div class="eval-bar"><div id="evalFill"></div></div>
+          <div id="evalText">50%</div>
+        </div>
+      </div>
+      <div id="progress" class="progress"></div>
+    </section>
+
+    <section class="panel board-panel">
+      <div id="board" class="board"></div>
+
+      <div class="legend">
+        <span><b class="o">O</b> o</span>
+        <span><b class="x">X</b> x</span>
+        <span class="legend5">■ 長さ5</span>
+        <span class="legend3">■ 長さ3</span>
+      </div>
+
+      <div class="input-buttons">
+        <button id="oButton" class="letter-button o-button">o</button>
+        <button id="xButton" class="letter-button x-button">x</button>
+      </div>
+    </section>
+
+    <section class="panel ai-panel">
+      <h2>AIの思考・選択理由</h2>
+      <div id="thinkingStatus" class="thinking-status">AIはまだ思考していません。</div>
+      <div id="reasonBox" class="reason-box">ここにAIが選んだ手と、その理由の要約が表示されます。</div>
+      <div id="candidateBox" class="candidate-box"></div>
+    </section>
+
+    <section class="panel rules">
+      <h2>ルール</h2>
+      <ul>
+        <li>先手と後手が交互に <b>o / x</b> を1文字ずつ追加します。</li>
+        <li>先手：同じ長さ5の文字列を、位置の重複なしで2個作れば勝利。</li>
+        <li>後手：同じ長さ3の文字列を、位置の重複なしで4個作れば勝利。</li>
+        <li>両方が同時に条件を満たした場合、その手を打った側が勝利。</li>
+        <li>長さ30までに決着しなければ両者敗北です。</li>
+      </ul>
+    </section>
+
+    <section class="panel analysis">
+      <h2>局面分析</h2>
+      <div id="analysisText"></div>
+    </section>
+  </main>
+</div>
+<script src="game.js"></script>
+</body>
+</html>
